@@ -5,7 +5,7 @@ import {
   ProductListScreen,
   ProductScreen,
 } from '@/features/products';
-import {AddProductButton} from '@/shared/components/add-product-button';
+import {AddProductButton} from '@/shared/components';
 import {RootStackParamList} from '@/types/navigation';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

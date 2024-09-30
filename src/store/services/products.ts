@@ -1,3 +1,4 @@
+import {ProductSchemaType} from '@/features/products/schemas';
 import {appApi} from '@/store/services/app';
 import {Product} from '@/types/products';
 
@@ -19,7 +20,7 @@ export const productsApi = appApi.injectEndpoints({
         url: `/products/categories`,
       }),
     }),
-    createProduct: build.mutation<Product, Product>({
+    createProduct: build.mutation<Pick<Product, 'id'>, ProductSchemaType>({
       query: body => ({
         url: `/products`,
         method: 'POST',
