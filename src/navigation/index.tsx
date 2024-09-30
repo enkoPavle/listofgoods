@@ -11,8 +11,18 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const Navigation = () => (
   <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name="ProductList" component={ProductListScreen} />
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerShadowVisible: false,
+      }}>
+      <Stack.Screen
+        name="ProductList"
+        component={ProductListScreen}
+        options={{
+          title: 'Products',
+        }}
+      />
       <Stack.Screen name="Product" component={ProductScreen} />
       <Stack.Screen name="CreateProduct" component={CreateProductScreen} />
     </Stack.Navigator>

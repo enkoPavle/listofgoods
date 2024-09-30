@@ -1,7 +1,7 @@
 import {appApi} from '@/store/services/app';
 import {Product} from '@/types/products';
 
-export const chatApi = appApi.injectEndpoints({
+export const productsApi = appApi.injectEndpoints({
   endpoints: build => ({
     getProducts: build.query<Product[], void>({
       query: () => ({
@@ -12,6 +12,11 @@ export const chatApi = appApi.injectEndpoints({
     getProduct: build.query<Product, Product['id']>({
       query: productId => ({
         url: `products/${productId}`,
+      }),
+    }),
+    getProductCategories: build.query<string[], void>({
+      query: () => ({
+        url: `/products/categories`,
       }),
     }),
     createProduct: build.mutation<Product, Product>({
@@ -28,5 +33,6 @@ export const chatApi = appApi.injectEndpoints({
 export const {
   useGetProductsQuery,
   useGetProductQuery,
+  useGetProductCategoriesQuery,
   useCreateProductMutation,
-} = chatApi;
+} = productsApi;
