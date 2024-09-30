@@ -26,7 +26,11 @@ export const Navigation = () => (
         }}
       />
       <Stack.Screen name="Product" component={ProductScreen} />
-      <Stack.Screen name="CreateProduct" component={CreateProductScreen} />
+      <Stack.Screen
+        name="CreateProduct"
+        component={CreateProductScreen}
+        options={{title: 'Create Product'}}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );
