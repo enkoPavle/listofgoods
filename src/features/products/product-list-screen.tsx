@@ -2,12 +2,17 @@ import {useCallback} from 'react';
 import {FlatList, RefreshControl, StyleSheet} from 'react-native';
 import {ScreenWrapper} from '@/shared/components';
 import {useAppNavigation, useRefresh} from '@/shared/hooks';
-import {ProductListItem, EmptyProductList} from './components';
+import {
+  ProductListItem,
+  ProductListHeader,
+  EmptyProductList,
+} from './components';
 import {useProductsData} from './hooks';
 import {Product} from '@/types/products';
 
 export const ProductListScreen = () => {
-  const {data, isLoading, isError, refetch} = useProductsData();
+  const {data, sort, isLoading, isError, setProductsSort, refetch} =
+    useProductsData();
   const {isRefreshing, refresh} = useRefresh(refetch);
   const {navigate} = useAppNavigation();
 
@@ -21,6 +26,10 @@ export const ProductListScreen = () => {
   const renderProductListItem = useCallback(({item}: {item: Product}) => {
     return <ProductListItem onPress={handleProductClick} {...item} />;
   }, []);
+
+  const renderProductListHeader = useCallback(() => {
+    return <ProductListHeader sort={sort} setSort={setProductsSort} />;
+  }, [sort]);
 
   const renderProductEmptyList = useCallback(() => {
     let title = '';
@@ -44,8 +53,10 @@ export const ProductListScreen = () => {
         numColumns={2}
         contentContainerStyle={styles.contentContainer}
         columnWrapperStyle={styles.columnWrapperStyle}
+        stickyHeaderIndices={[0]}
         keyExtractor={item => item.id.toString()}
         renderItem={renderProductListItem}
+        ListHeaderComponent={renderProductListHeader}
         ListEmptyComponent={renderProductEmptyList}
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />

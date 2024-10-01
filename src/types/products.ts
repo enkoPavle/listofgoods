@@ -10,3 +10,5 @@ export interface Product {
     count: number;
   };
 }
+
+export type ProductSortValue = 'asc' | 'desc';

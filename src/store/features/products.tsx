@@ -1,29 +1,44 @@
 import {productsApi} from '../services/products';
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import isEqual from 'react-fast-compare';
-import {Product} from '@/types/products';
+import {Product, ProductSortValue} from '@/types/products';
 
-const initialState: Product[] = [];
+const initialState: {
+  data: Product[];
+  sort: ProductSortValue;
+} = {
+  data: [],
+  sort: 'asc',
+};
 
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    setProducts: (_, {payload}: PayloadAction<Product[]>) => payload,
+    setProducts: (
+      _,
+      {payload}: PayloadAction<{data: Product[]; sort: ProductSortValue}>,
+    ) => payload,
+    setProductsSort: (state, {payload}: PayloadAction<ProductSortValue>) => {
+      state.sort = payload;
+    },
     resetProducts: () => initialState,
   },
   extraReducers: buider => {
     buider.addMatcher(
       productsApi.endpoints.getProducts.matchFulfilled,
       (state, {payload}) => {
-        if (!isEqual(state, payload)) {
-          return payload;
+        if (!isEqual(state.data, payload)) {
+          return {
+            sort: state.sort,
+            data: payload,
+          };
         }
       },
     );
   },
 });
 
-export const {setProducts} = productsSlice.actions;
+export const {setProducts, setProductsSort} = productsSlice.actions;
 
 export default productsSlice;

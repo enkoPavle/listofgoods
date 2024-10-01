@@ -1,12 +1,15 @@
 import {ProductSchemaType} from '@/features/products/schemas';
 import {appApi} from '@/store/services/app';
-import {Product} from '@/types/products';
+import {Product, ProductSortValue} from '@/types/products';
 
 export const productsApi = appApi.injectEndpoints({
   endpoints: build => ({
-    getProducts: build.query<Product[], void>({
-      query: () => ({
+    getProducts: build.query<Product[], {sort: ProductSortValue}>({
+      query: ({sort}) => ({
         url: `/products`,
+        params: {
+          sort,
+        },
       }),
       providesTags: ['Products'],
     }),
