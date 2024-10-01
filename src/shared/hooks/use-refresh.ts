@@ -8,5 +8,6 @@ export const useRefresh = (refetch: () => void) => {
     refetch()
     setIsRefreshing(false)
   }, [refetch])
+
   return {isRefreshing, refresh}
 }
