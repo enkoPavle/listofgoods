@@ -15,7 +15,10 @@ export const useProductData = (productId: Product["id"]) => {
     if (data) {
       return data
     } else {
-      return products.data?.find((product) => product.id === productId)
+      return (
+        products.data?.find((product) => product.id === productId) ??
+        products.customData?.find((product) => product.id === productId)
+      )
     }
   }, [products, data])
 

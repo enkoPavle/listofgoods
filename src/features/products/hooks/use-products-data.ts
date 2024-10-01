@@ -3,7 +3,7 @@ import {useAppSelector} from "@/store"
 import {useGetProductsQuery} from "@/store/services/products"
 
 export const useProductsData = () => {
-  const {data, sort} = useAppSelector((state) => state.products)
+  const {data, customData, sort} = useAppSelector((state) => state.products)
   const {isLoading, isError, refetch} = useGetProductsQuery(
     {sort},
     {
@@ -16,7 +16,8 @@ export const useProductsData = () => {
   const {setProductsSort} = useActions()
 
   return {
-    data,
+    data: data.concat(customData),
+    customData,
     sort,
     isLoading,
     isError,

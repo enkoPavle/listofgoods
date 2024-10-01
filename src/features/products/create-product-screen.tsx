@@ -8,7 +8,7 @@ import {
   ScreenWrapper,
   Text
 } from "@/shared/components"
-import {useAppNavigation} from "@/shared/hooks"
+import {useActions, useAppNavigation} from "@/shared/hooks"
 import {useCreateProductMutation} from "@/store/services/products"
 
 import {productSchema, ProductSchemaType} from "./schemas"
@@ -26,10 +26,14 @@ const initialValues: ProductSchemaType = {
 export const CreateProductScreen = () => {
   const [createProduct, {isLoading, isError}] = useCreateProductMutation()
   const {goBack} = useAppNavigation()
+  const {setCustomProduct} = useActions()
 
   const handleSubmitForm = async (body: ProductSchemaType) => {
     try {
       await createProduct(body).unwrap()
+      const id = Date.now()
+
+      setCustomProduct({id, ...body})
       goBack()
     } catch (error) {}
   }

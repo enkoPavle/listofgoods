@@ -1,12 +1,13 @@
 import {useMemo} from "react"
 
 import {useAppDispatch} from "@/store"
-import {setProducts, setProductsSort} from "@/store/features/products"
+import {setProducts, setCustomProduct, setProductsSort} from "@/store/features/products"
 
 import {bindActionCreators} from "@reduxjs/toolkit"
 
 const rootActions = {
   setProducts,
+  setCustomProduct,
   setProductsSort
 }
 

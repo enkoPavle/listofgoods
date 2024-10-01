@@ -1,7 +1,7 @@
 import {FC} from "react"
-import {Dimensions, Image, ScrollView, StyleSheet, View} from "react-native"
+import {Dimensions, ScrollView, StyleSheet, View} from "react-native"
 
-import {ScreenWrapper, Text} from "@/shared/components"
+import {ImageWithFallback, ScreenWrapper, Text} from "@/shared/components"
 
 import {useProductData} from "./hooks"
 
@@ -25,20 +25,24 @@ export const ProductScreen: FC<Props> = ({route}) => {
           contentContainerStyle={styles.container}
           showsVerticalScrollIndicator={false}
         >
-          <Image
+          <ImageWithFallback
             source={{uri: data?.image}}
             style={{width: containerWidth, height: containerWidth}}
           />
           <Text type="title">{data?.title}</Text>
-          <Text>Category: {data?.category}</Text>
+          {data.category ? <Text>Category: {data?.category}</Text> : null}
           <View style={styles.rowContainer}>
             <Text type="title" color={Colors.blue}>
               ${data?.price}
             </Text>
-            <Text>
-              <Text color={getRatingColor(data?.rating.rate)}>✭{data?.rating.rate}</Text>{" "}
-              ({data?.rating.count})
-            </Text>
+            {data?.rating ? (
+              <Text>
+                <Text color={getRatingColor(data?.rating.rate)}>
+                  ✭{data?.rating.rate}
+                </Text>{" "}
+                ({data?.rating.count})
+              </Text>
+            ) : null}
           </View>
           <Text>{data?.description}</Text>
         </ScrollView>

@@ -1,7 +1,7 @@
 import {FC, memo} from "react"
-import {Dimensions, Image, StyleSheet, TouchableOpacity} from "react-native"
+import {Dimensions, StyleSheet, TouchableOpacity} from "react-native"
 
-import {Text} from "@/shared/components"
+import {Text, ImageWithFallback} from "@/shared/components"
 
 import {Product} from "@/types/products"
 
@@ -15,7 +15,7 @@ interface Props extends Product {
 export const ProductListItem: FC<Props> = memo(({id, title, price, image, onPress}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => onPress(id)}>
-      <Image
+      <ImageWithFallback
         source={{uri: image}}
         style={{width: containerWidth, height: containerWidth}}
       />

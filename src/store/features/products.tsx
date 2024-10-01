@@ -8,9 +8,11 @@ import {Product, ProductSortValue} from "@/types/products"
 
 const initialState: {
   data: Product[]
+  customData: Product[]
   sort: ProductSortValue
 } = {
   data: [],
+  customData: [],
   sort: "asc"
 }
 
@@ -19,9 +21,18 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {
     setProducts: (
-      _,
+      state,
       {payload}: PayloadAction<{data: Product[]; sort: ProductSortValue}>
-    ) => payload,
+    ) => {
+      return {
+        sort: payload.sort,
+        data: payload.data,
+        customData: state.data
+      }
+    },
+    setCustomProduct: (state, {payload}: PayloadAction<Product>) => {
+      state.customData = state.customData.concat(payload)
+    },
     setProductsSort: (state, {payload}: PayloadAction<ProductSortValue>) => {
       state.sort = payload
     },
@@ -34,6 +45,7 @@ export const productsSlice = createSlice({
         if (!isEqual(state.data, payload)) {
           return {
             sort: state.sort,
+            customData: state.customData,
             data: payload
           }
         }
@@ -42,6 +54,6 @@ export const productsSlice = createSlice({
   }
 })
 
-export const {setProducts, setProductsSort} = productsSlice.actions
+export const {setProducts, setCustomProduct, setProductsSort} = productsSlice.actions
 
 export default productsSlice
