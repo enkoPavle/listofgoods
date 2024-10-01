@@ -1,4 +1,5 @@
 export * from "./add-product-button"
+export * from "./button"
 export * from "./dismiss-keyboard"
 export * from "./formik-text-input"
 export * from "./keyboard-avoiding-view"

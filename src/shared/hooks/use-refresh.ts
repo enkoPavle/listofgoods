@@ -4,15 +4,9 @@ export const useRefresh = (refetch: () => void) => {
   const [isRefreshing, setIsRefreshing] = useState(false)
 
   const refresh = useCallback(async () => {
-    try {
-      setIsRefreshing(true)
-      refetch()
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsRefreshing(false)
-    }
+    setIsRefreshing(true)
+    refetch()
+    setIsRefreshing(false)
   }, [refetch])
-
   return {isRefreshing, refresh}
 }

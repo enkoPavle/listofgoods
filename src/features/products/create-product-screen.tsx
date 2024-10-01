@@ -1,6 +1,7 @@
-import {Button, StyleSheet, View} from "react-native"
+import {StyleSheet, View} from "react-native"
 
 import {
+  Button,
   DismissKeyboard,
   FormikTextInput,
   KeyboardAvoidingView,
@@ -30,16 +31,15 @@ export const CreateProductScreen = () => {
     try {
       await createProduct(body).unwrap()
       goBack()
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 
-  const {values, touched, errors, handleChange, handleBlur, handleSubmit} = useFormik({
-    initialValues: initialValues,
-    validationSchema: productSchema,
-    onSubmit: handleSubmitForm
-  })
+  const {values, touched, errors, isValid, handleChange, handleBlur, handleSubmit} =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: productSchema,
+      onSubmit: handleSubmitForm
+    })
 
   return (
     <ScreenWrapper>
@@ -76,7 +76,11 @@ export const CreateProductScreen = () => {
             />
             <Text color={Colors.red}>{isError ? "Something went wrong" : ""}</Text>
           </View>
-          <Button disabled={isLoading} onPress={() => handleSubmit()} title="Submit" />
+          <Button
+            disabled={isLoading || !isValid}
+            onPress={() => handleSubmit()}
+            title="Submit"
+          />
         </DismissKeyboard>
       </KeyboardAvoidingView>
     </ScreenWrapper>
