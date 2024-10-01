@@ -18,7 +18,7 @@ import {Action, combineReducers, configureStore, ThunkAction} from "@reduxjs/too
 import {setupListeners} from "@reduxjs/toolkit/query"
 
 const persistConfig = {
-  key: "listofgoods",
+  key: "products",
   storage: AsyncStorage,
   whitelist: [productsSlice.name]
 }
