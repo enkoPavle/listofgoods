@@ -1,15 +1,17 @@
-import {useMemo} from 'react';
-import {useAppDispatch} from '@/store';
-import {setProducts, setProductsSort} from '@/store/features/products';
-import {bindActionCreators} from '@reduxjs/toolkit';
+import {useMemo} from "react"
+
+import {useAppDispatch} from "@/store"
+import {setProducts, setProductsSort} from "@/store/features/products"
+
+import {bindActionCreators} from "@reduxjs/toolkit"
 
 const rootActions = {
   setProducts,
-  setProductsSort,
-};
+  setProductsSort
+}
 
 export const useActions = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
-  return useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch]);
-};
+  return useMemo(() => bindActionCreators(rootActions, dispatch), [dispatch])
+}

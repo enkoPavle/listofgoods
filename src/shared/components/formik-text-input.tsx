@@ -1,27 +1,25 @@
-import React from 'react';
+import React from "react"
 import {
   StyleSheet,
-  View,
   TextInput as RNTextInput,
   TextInputProps as RNTextInputProps,
-} from 'react-native';
-import {Text} from './text';
-import {
-  FormikErrors,
-  FormikTouched,
-  FormikHandlers,
-  FormikValues,
-} from 'formik';
-import {Colors} from '@/utils/colors';
+  View
+} from "react-native"
+
+import {Text} from "./text"
+
+import {FormikErrors, FormikHandlers, FormikTouched, FormikValues} from "formik"
+
+import {Colors} from "@/utils/colors"
 
 interface Props<FormValues> extends RNTextInputProps {
-  label: string;
-  fieldName: keyof FormValues;
-  values: FormValues;
-  touched: FormikTouched<FormValues>;
-  errors: FormikErrors<FormValues>;
-  handleChange: FormikHandlers['handleChange'];
-  handleBlur: FormikHandlers['handleBlur'];
+  label: string
+  fieldName: keyof FormValues
+  values: FormValues
+  touched: FormikTouched<FormValues>
+  errors: FormikErrors<FormValues>
+  handleChange: FormikHandlers["handleChange"]
+  handleBlur: FormikHandlers["handleBlur"]
 }
 
 export const FormikTextInput = <T extends FormikValues>({
@@ -47,12 +45,12 @@ export const FormikTextInput = <T extends FormikValues>({
       />
       <Text color={Colors.red}>{errors[fieldName]?.toString()}</Text>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
-    gap: 5,
+    gap: 5
   },
   label: {},
   input: {
@@ -61,7 +59,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderColor: Colors.black,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 10
   },
-  error: {},
-});
+  error: {}
+})

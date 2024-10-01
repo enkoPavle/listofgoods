@@ -1,14 +1,14 @@
 export interface Product {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
+  id: number
+  title: string
+  price: number
+  description: string
+  category: string
+  image: string
   rating: {
-    rate: number;
-    count: number;
-  };
+    rate: number
+    count: number
+  }
 }
 
-export type ProductSortValue = 'asc' | 'desc';
+export type ProductSortValue = "asc" | "desc"

@@ -1,42 +1,45 @@
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, View} from "react-native"
+
 import {
-  ScreenWrapper,
-  KeyboardAvoidingView,
   DismissKeyboard,
   FormikTextInput,
-  Text,
-} from '@/shared/components';
-import {useAppNavigation} from '@/shared/hooks';
-import {productSchema, ProductSchemaType} from './schemas';
-import {useCreateProductMutation} from '@/store/services/products';
-import {useFormik} from 'formik';
-import {Colors} from '@/utils/colors';
+  KeyboardAvoidingView,
+  ScreenWrapper,
+  Text
+} from "@/shared/components"
+import {useAppNavigation} from "@/shared/hooks"
+import {useCreateProductMutation} from "@/store/services/products"
+
+import {productSchema, ProductSchemaType} from "./schemas"
+
+import {useFormik} from "formik"
+
+import {Colors} from "@/utils/colors"
 
 const initialValues: ProductSchemaType = {
-  title: '',
+  title: "",
   price: undefined!,
-  description: '',
-};
+  description: ""
+}
 
 export const CreateProductScreen = () => {
-  const [createProduct, {isLoading, isError}] = useCreateProductMutation();
-  const {goBack} = useAppNavigation();
+  const [createProduct, {isLoading, isError}] = useCreateProductMutation()
+  const {goBack} = useAppNavigation()
 
   const handleSubmitForm = async (body: ProductSchemaType) => {
     try {
-      await createProduct(body).unwrap();
-      goBack();
+      await createProduct(body).unwrap()
+      goBack()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
-  const {values, touched, errors, handleChange, handleBlur, handleSubmit} =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: productSchema,
-      onSubmit: handleSubmitForm,
-    });
+  const {values, touched, errors, handleChange, handleBlur, handleSubmit} = useFormik({
+    initialValues: initialValues,
+    validationSchema: productSchema,
+    onSubmit: handleSubmitForm
+  })
 
   return (
     <ScreenWrapper>
@@ -71,26 +74,20 @@ export const CreateProductScreen = () => {
               handleChange={handleChange}
               handleBlur={handleBlur}
             />
-            <Text color={Colors.red}>
-              {isError ? 'Something went wrong' : ''}
-            </Text>
+            <Text color={Colors.red}>{isError ? "Something went wrong" : ""}</Text>
           </View>
-          <Button
-            disabled={isLoading}
-            onPress={() => handleSubmit()}
-            title="Submit"
-          />
+          <Button disabled={isLoading} onPress={() => handleSubmit()} title="Submit" />
         </DismissKeyboard>
       </KeyboardAvoidingView>
     </ScreenWrapper>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   formContainer: {
-    flexGrow: 1,
-  },
-});
+    flexGrow: 1
+  }
+})

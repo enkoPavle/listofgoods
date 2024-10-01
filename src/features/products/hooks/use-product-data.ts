@@ -1,25 +1,27 @@
-import {useMemo} from 'react';
-import {useAppSelector} from '@/store';
-import {useGetProductQuery} from '@/store/services/products';
-import {Product} from '@/types/products';
+import {useMemo} from "react"
 
-export const useProductData = (productId: Product['id']) => {
-  const products = useAppSelector(state => state.products);
+import {useAppSelector} from "@/store"
+import {useGetProductQuery} from "@/store/services/products"
+
+import {Product} from "@/types/products"
+
+export const useProductData = (productId: Product["id"]) => {
+  const products = useAppSelector((state) => state.products)
   const {data, isLoading, isError} = useGetProductQuery(productId, {
-    skip: !productId,
-  });
+    skip: !productId
+  })
 
   const product = useMemo(() => {
     if (data) {
-      return data;
+      return data
     } else {
-      return products?.find(product => product.id === productId);
+      return products.data?.find((product) => product.id === productId)
     }
-  }, [products, data]);
+  }, [products, data])
 
   return {
     data: product,
     isLoading,
-    isError,
-  };
-};
+    isError
+  }
+}

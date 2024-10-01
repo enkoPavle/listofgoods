@@ -1,11 +1,12 @@
-import {FC} from 'react';
-import {Text as RNText, StyleSheet, TextProps} from 'react-native';
-import {Colors} from '@/utils/colors';
+import {FC} from "react"
+import {StyleSheet, Text as RNText, TextProps} from "react-native"
+
+import {Colors} from "@/utils/colors"
 
 interface Props extends TextProps {
-  type?: 'title' | 'text';
-  color?: string;
-  center?: boolean;
+  type?: "title" | "text"
+  color?: string
+  center?: boolean
 }
 
 export const Text: FC<Props> = ({type, center, color, style, ...restProps}) => {
@@ -14,19 +15,19 @@ export const Text: FC<Props> = ({type, center, color, style, ...restProps}) => {
       style={[
         styles.text,
         {
-          fontSize: type === 'title' ? 22 : 16,
-          textAlign: center ? 'center' : 'left',
-          color: color ?? Colors.black,
+          fontSize: type === "title" ? 22 : 16,
+          textAlign: center ? "center" : "left",
+          color: color ?? Colors.black
         },
-        style,
+        style
       ]}
       {...restProps}
     />
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   text: {
-    color: Colors.black,
-  },
-});
+    color: Colors.black
+  }
+})

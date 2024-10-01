@@ -1,18 +1,18 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useState} from "react"
 
 export const useRefresh = (refetch: () => void) => {
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
   const refresh = useCallback(async () => {
     try {
-      setIsRefreshing(true);
-      refetch();
+      setIsRefreshing(true)
+      refetch()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     } finally {
-      setIsRefreshing(false);
+      setIsRefreshing(false)
     }
-  }, [refetch]);
+  }, [refetch])
 
-  return {isRefreshing, refresh};
-};
+  return {isRefreshing, refresh}
+}

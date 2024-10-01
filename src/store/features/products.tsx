@@ -1,44 +1,47 @@
-import {productsApi} from '../services/products';
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import isEqual from 'react-fast-compare';
-import {Product, ProductSortValue} from '@/types/products';
+import {productsApi} from "../services/products"
+
+import isEqual from "react-fast-compare"
+
+import {createSlice, PayloadAction} from "@reduxjs/toolkit"
+
+import {Product, ProductSortValue} from "@/types/products"
 
 const initialState: {
-  data: Product[];
-  sort: ProductSortValue;
+  data: Product[]
+  sort: ProductSortValue
 } = {
   data: [],
-  sort: 'asc',
-};
+  sort: "asc"
+}
 
 export const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState,
   reducers: {
     setProducts: (
       _,
-      {payload}: PayloadAction<{data: Product[]; sort: ProductSortValue}>,
+      {payload}: PayloadAction<{data: Product[]; sort: ProductSortValue}>
     ) => payload,
     setProductsSort: (state, {payload}: PayloadAction<ProductSortValue>) => {
-      state.sort = payload;
+      state.sort = payload
     },
-    resetProducts: () => initialState,
+    resetProducts: () => initialState
   },
-  extraReducers: buider => {
+  extraReducers: (buider) => {
     buider.addMatcher(
       productsApi.endpoints.getProducts.matchFulfilled,
       (state, {payload}) => {
         if (!isEqual(state.data, payload)) {
           return {
             sort: state.sort,
-            data: payload,
-          };
+            data: payload
+          }
         }
-      },
-    );
-  },
-});
+      }
+    )
+  }
+})
 
-export const {setProducts, setProductsSort} = productsSlice.actions;
+export const {setProducts, setProductsSort} = productsSlice.actions
 
-export default productsSlice;
+export default productsSlice

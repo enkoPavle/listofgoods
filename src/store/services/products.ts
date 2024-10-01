@@ -1,42 +1,43 @@
-import {ProductSchemaType} from '@/features/products/schemas';
-import {appApi} from '@/store/services/app';
-import {Product, ProductSortValue} from '@/types/products';
+import {ProductSchemaType} from "@/features/products/schemas"
+import {appApi} from "@/store/services/app"
+
+import {Product, ProductSortValue} from "@/types/products"
 
 export const productsApi = appApi.injectEndpoints({
-  endpoints: build => ({
+  endpoints: (build) => ({
     getProducts: build.query<Product[], {sort: ProductSortValue}>({
       query: ({sort}) => ({
         url: `/products`,
         params: {
-          sort,
-        },
+          sort
+        }
       }),
-      providesTags: ['Products'],
+      providesTags: ["Products"]
     }),
-    getProduct: build.query<Product, Product['id']>({
-      query: productId => ({
-        url: `products/${productId}`,
-      }),
+    getProduct: build.query<Product, Product["id"]>({
+      query: (productId) => ({
+        url: `products/${productId}`
+      })
     }),
     getProductCategories: build.query<string[], void>({
       query: () => ({
-        url: `/products/categories`,
-      }),
+        url: `/products/categories`
+      })
     }),
-    createProduct: build.mutation<Pick<Product, 'id'>, ProductSchemaType>({
-      query: body => ({
+    createProduct: build.mutation<Pick<Product, "id">, ProductSchemaType>({
+      query: (body) => ({
         url: `/products`,
-        method: 'POST',
-        body,
+        method: "POST",
+        body
       }),
-      invalidatesTags: ['Products'],
-    }),
-  }),
-});
+      invalidatesTags: ["Products"]
+    })
+  })
+})
 
 export const {
   useGetProductsQuery,
   useGetProductQuery,
   useGetProductCategoriesQuery,
-  useCreateProductMutation,
-} = productsApi;
+  useCreateProductMutation
+} = productsApi

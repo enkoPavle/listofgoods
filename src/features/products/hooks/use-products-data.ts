@@ -1,19 +1,19 @@
-import {useActions} from '@/shared/hooks';
-import {useAppSelector} from '@/store';
-import {useGetProductsQuery} from '@/store/services/products';
+import {useActions} from "@/shared/hooks"
+import {useAppSelector} from "@/store"
+import {useGetProductsQuery} from "@/store/services/products"
 
 export const useProductsData = () => {
-  const {data, sort} = useAppSelector(state => state.products);
+  const {data, sort} = useAppSelector((state) => state.products)
   const {isLoading, isError, refetch} = useGetProductsQuery(
     {sort},
     {
       refetchOnMountOrArgChange: true,
       refetchOnReconnect: true,
-      pollingInterval: 60_000,
-    },
-  );
+      pollingInterval: 60_000
+    }
+  )
 
-  const {setProductsSort} = useActions();
+  const {setProductsSort} = useActions()
 
   return {
     data,
@@ -21,6 +21,6 @@ export const useProductsData = () => {
     isLoading,
     isError,
     setProductsSort,
-    refetch,
-  };
-};
+    refetch
+  }
+}
